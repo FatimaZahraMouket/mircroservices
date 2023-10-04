@@ -1,0 +1,80 @@
+entity User {
+	fullName String
+    dateNaissance LocalDate
+    email String
+    password String
+    photo Blob
+}
+
+entity Medecin {
+	specialite String
+}
+
+entity Patient {
+	numeroTelephone Long
+    cin String
+}
+
+entity Boitier {
+	type String
+	ref String
+    nbrBranche Integer
+}
+
+entity Capteur {
+	type String
+	photo Blob
+    valeurMin Float
+    valeurMax Float
+}
+entity Mesure {
+    type String
+	valeur Float
+     date LocalDate
+}
+entity MedecinPatient {
+	dateDebut LocalDate
+	dateFin LocalDate
+}
+
+entity BoitierPatient {
+	dateDebut LocalDate
+	dateFin LocalDate
+}
+
+entity BoitierCapteur {
+	branche String
+	etat Boolean
+}
+
+relationship OneToMany {
+	Patient to Mesure
+	
+}
+
+
+relationship ManyToMany {
+	 MedecinPatient{medecin} to Medecin{patients}
+     MedecinPatient{patient} to Patient{medecins}
+
+}
+relationship ManyToMany {
+	MedecinPatient to Patient
+}
+relationship ManyToMany {
+	BoitierPatient to Patient
+}
+relationship ManyToMany {
+	BoitierPatient to Boitier
+}
+
+relationship ManyToMany {
+	BoitierCapteur to Boitier
+}
+relationship ManyToMany {
+	BoitierCapteur to Capteur
+}
+enum Language {
+    FRENCH, ENGLISH, ARABIC
+}
+
